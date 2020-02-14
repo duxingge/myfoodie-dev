@@ -1,0 +1,15 @@
+# Created by .ignore support plugin (hsz.mobi)
+### Example user template template
+### Example user template
+
+# IntelliJ project files
+.idea
+*.iml
+out
+gen
+/myfoodie-dev-api/target/
+/myfoodie-dev-common/target/
+/myfoodie-dev-mapper/target/
+/myfoodie-dev-pojo/target/
+/myfoodie-dev-service/target/
+/.idea/
