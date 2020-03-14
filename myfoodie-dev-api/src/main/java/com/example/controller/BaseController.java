@@ -10,19 +10,10 @@ import springfox.documentation.annotations.ApiIgnore;
 
 @RestController
 @ApiIgnore
-public class HelloApllication {
+public class BaseController {
 
-    @Autowired
-    private StuService stuService;
 
-    @GetMapping("/hello")
-    public String Hello() {
-        return "hello";
-    }
-
-    @GetMapping("/getstu")
-    public Stu getStu(@RequestParam int id) {
-        return stuService.getStuById(id);
-    }
+    public static final Integer COMMON_PAGE_SIZE = 10;
+    public static final Integer PAGE_SIZE = 20;
 
 }

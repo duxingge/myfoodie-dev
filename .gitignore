@@ -7,9 +7,11 @@
 *.iml
 out
 gen
+*.class
 /myfoodie-dev-api/target/
 /myfoodie-dev-common/target/
 /myfoodie-dev-mapper/target/
 /myfoodie-dev-pojo/target/
 /myfoodie-dev-service/target/
 /.idea/
+
