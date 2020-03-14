@@ -13,3 +13,4 @@ gen
 /myfoodie-dev-pojo/target/
 /myfoodie-dev-service/target/
 /.idea/
+*.class

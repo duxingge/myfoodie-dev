@@ -38,3 +38,6 @@ mapper:
   mappers: com.example.my.mapper.MyMapper
   not-empty: false
   identity: MYSQL
+pagehelper:
+  support-methods-arguments: true
+  helper-dialect: mysql

@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.mapper.ItemsMapperCustom" >
+
+  <select id="searchItem" parameterType="Map" resultType="com.example.pojo.vo.SearchItemVO">
+    SELECT
+    i.id as itemId,
+    i.item_name as itemName,
+    i.sell_counts as sellCounts,
+    ii.url as imgUrl,
+    tempSpec.price_discount as price
+    FROM
+    items i
+    LEFT JOIN items_img ii
+    ON i.id = ii.item_id
+
+    LEFT JOIN
+    (SELECT item_id,MIN(price_discount) as price_discount from items_spec GROUP BY item_id) tempSpec
+    ON i.id = tempSpec.item_id
+
+    WHERE
+    ii.is_main = 1
+    AND
+    <if test="paramsMap.keywords!=null and paramsMap.keywords!=''">
+        i.item_name like '%${paramsMap.keywords}%'
+    </if>
+
+    ORDER BY
+    <choose>
+        <when test="paramsMap.sort == &quot;c&quot;">
+            i.sell_counts desc
+        </when>
+        <when test="paramsMap.sort == &quot;p&quot;">
+            tempSpec.price_discount desc
+        </when>
+        <otherwise>
+            i.item_name asc
+        </otherwise>
+    </choose>
+
+</select>
+    <!-- k: 默认，代表默认排序，根据name-->
+    <!-- c: 根据销量排序-->
+    <!-- p: 根据价格排序-->
+
+
+
+    <select id="searchItemByThirdCat" parameterType="Map" resultType="com.example.pojo.vo.SearchItemVO">
+        SELECT
+        i.id as itemId,
+        i.item_name as itemName,
+        i.sell_counts as sellCounts,
+        ii.url as imgUrl,
+        tempSpec.price_discount as price
+        FROM
+        items i
+        LEFT JOIN items_img ii
+        ON i.id = ii.item_id
+
+        LEFT JOIN
+        (SELECT item_id,MIN(price_discount) as price_discount from items_spec GROUP BY item_id) tempSpec
+        ON i.id = tempSpec.item_id
+
+        WHERE
+        ii.is_main = 1
+        AND
+
+        i.cat_id = #{paramsMap.catId}
+
+        ORDER BY
+        <choose>
+            <when test="paramsMap.sort == &quot;c&quot;">
+                i.sell_counts desc
+            </when>
+            <when test="paramsMap.sort == &quot;p&quot;">
+                tempSpec.price_discount desc
+            </when>
+            <otherwise>
+                i.item_name asc
+            </otherwise>
+        </choose>
+
+    </select>
+    <!-- k: 默认，代表默认排序，根据name-->
+    <!-- c: 根据销量排序-->
+    <!-- p: 根据价格排序-->
+
+
+
+    <select id="queryItemComments" parameterType="Map" resultType="com.example.pojo.vo.ItemCommentVO">
+        SELECT
+            c.sepc_name as specName,
+            c.created_time as createdTime,
+            c.content as content,
+            c.comment_level as conmentLevel,
+            u.nickname as nickname,
+            u.face as userface
+        FROM
+            items_comments c
+        LEFT JOIN users u
+        ON
+            c.user_id = u.id
+        WHERE
+            c.item_id = #{paramsMap.itemId}
+            <if test="paramsMap.level!=null and paramsMap.level!=''">
+                AND c.comment_level = #{paramsMap.level}
+            </if>
+
+    </select>
+
+
+    <select id="queryItemsBySpecIds" parameterType="List" resultType="com.example.pojo.vo.ShopcartVO">
+         SELECT
+            t_items.id as itemId,
+            t_items.item_name as itemName,
+            t_items_img.url as itemImgUrl,
+            t_items_spec.id as specId,
+            t_items_spec.`name` as specName,
+            t_items_spec.price_discount as priceDiscount,
+            t_items_spec.price_normal as priceNormal
+        FROM
+            items_spec t_items_spec
+        LEFT JOIN
+            items t_items
+        ON
+            t_items.id = t_items_spec.item_id
+        LEFT JOIN
+            items_img t_items_img
+        on
+            t_items_img.item_id = t_items.id
+        WHERE
+            t_items_img.is_main = 1
+        AND
+            t_items_spec.id IN
+            <foreach collection="paramsList" index="index" item="specId" open="(" close=")" separator=",">
+                #{specId}
+            </foreach>
+
+    </select>
+</mapper>
