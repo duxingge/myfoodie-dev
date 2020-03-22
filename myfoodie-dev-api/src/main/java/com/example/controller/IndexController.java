@@ -2,6 +2,8 @@ package com.example.controller;
 
 
 import com.example.pojo.vo.NewItemVo;
+
+
 import com.example.service.CarouselService;
 import com.example.service.CategoryService;
 import com.example.utils.IMOOCJSONResult;
@@ -9,8 +11,10 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 

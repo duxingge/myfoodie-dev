@@ -136,11 +136,11 @@ public class ItemController extends BaseController {
             @ApiParam(value = "商品ID",required = true)
             @RequestParam String itemId,
             @ApiParam(value = "好评级别", required = false)
-            @RequestParam Integer level,
+            @RequestParam(required = false) Integer level,
             @ApiParam(value = "查询的第几页", required = false)
-            @RequestParam Integer page,
+            @RequestParam(required = false) Integer page,
             @ApiParam(value = "分页的每一页显示的条数",required = false)
-            @RequestParam Integer pageSize) {
+            @RequestParam(required = false) Integer pageSize) {
 
         if (StringUtils.isBlank(itemId)) {
             return IMOOCJSONResult.errorMsg(null);

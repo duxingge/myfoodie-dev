@@ -1,6 +1,7 @@
 package com.example.service.imp;
 
 import com.example.enums.CommentLevel;
+import com.example.enums.YesOrNo;
 import com.example.mapper.*;
 import com.example.pojo.*;
 import com.example.pojo.vo.CommentLevelCountsVO;
@@ -163,6 +164,31 @@ public class ItemServiceImp implements ItemService {
     public List<ShopcartVO> queryItemsBySpecIds(List<String> specList) {
         return mapperCustom.queryItemsBySpecIds(specList);
 
+    }
+
+    @Transactional(propagation = Propagation.SUPPORTS)
+    @Override
+    public ItemsSpec queryItemSpecById(String itemSpecId) {
+        return specMapper.selectByPrimaryKey(itemSpecId);
+    }
+
+    @Transactional(propagation = Propagation.SUPPORTS)
+    @Override
+    public String queryItemMainImgById(String itemId) {
+        ItemsImg img = new ItemsImg();
+        img.setItemId(itemId);
+        img.setIsMain(YesOrNo.YES.type);
+        ItemsImg mainImg = imgMapper.selectOne(img);
+        return mainImg!=null?mainImg.getUrl():"";
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED)
+    @Override
+    public void decreaseItemSpecStock(String specId, int buyCounts) {
+        Integer result = mapperCustom.decreaseItemSpecStock(specId, buyCounts);
+        if (result!=null && result != 1) {
+            throw new RuntimeException("订单创建失败，原因：库存不足!");
+        }
     }
 
 }
