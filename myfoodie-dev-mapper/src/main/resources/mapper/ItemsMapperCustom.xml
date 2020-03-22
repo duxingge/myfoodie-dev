@@ -137,4 +137,15 @@
             </foreach>
 
     </select>
+
+    <select id="decreaseItemSpecStock" resultType="java.lang.Integer">
+        UPDATE
+            items_spec
+        SET
+            stock = stock - #{pendingCounts}
+        WHERE
+	        id = #{specId}
+	    AND
+	        stock > #{pendingCounts}
+    </select>
 </mapper>

@@ -21,4 +21,13 @@ public interface ItemService {
     PagedGridResult queryItemComments(String itemId,Integer commentLevel,Integer page,Integer pageSize);
     CommentLevelCountsVO queryCommentCounts(String itemId);
     List<ShopcartVO> queryItemsBySpecIds(List<String> specList);
+    ItemsSpec queryItemSpecById(String itemSpecId);
+    String queryItemMainImgById(String itemId);
+
+    /**
+     * 减少库存
+     * @param specId
+     * @param buyCounts
+     */
+    void decreaseItemSpecStock(String specId, int buyCounts);
 }
