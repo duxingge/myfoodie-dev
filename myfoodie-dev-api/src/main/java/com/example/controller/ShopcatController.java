@@ -2,6 +2,7 @@ package com.example.controller;
 
 import com.example.pojo.bo.ShopcartBO;
 import com.example.utils.IMOOCJSONResult;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.apache.commons.lang3.StringUtils;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 @RestController
 @RequestMapping("shopcart")
+@Api(value = "购物车",tags = {"购物车相关接口"})
 public class ShopcatController {
 
     @ApiOperation(value = "添加商品到购物车", notes = "添加商品到购物车", httpMethod = "POST")
