@@ -46,3 +46,5 @@ mapper:
 pagehelper:
   support-methods-arguments: true
   helper-dialect: mysql
+custom:
+  resourceLoctaion: /home/devsoft/tomcat/resources/   #静态资源映射目录
