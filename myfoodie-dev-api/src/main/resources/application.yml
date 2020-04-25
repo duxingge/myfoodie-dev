@@ -29,7 +29,10 @@ spring:
     # mybatis 配置
     #
     ############################################################
-
+  servlet:
+    multipart:
+      max-file-size: 512000
+      max-request-size: 512000
 
 mybatis:
   type-aliases-package: com.example.pojo          # 所有POJO类所在包路径
