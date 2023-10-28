@@ -20,5 +20,14 @@
         </dependency>
     </dependencies>
 
+    <build>
+        <plugins>
+            <!-- 会帮助生成识别Mainclass的MATE-INFO -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>
